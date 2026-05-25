@@ -1,6 +1,20 @@
-fastapi==0.111.*
+# ── Web framework ─────────────────────────────────────────────────────────────
+fastapi==0.115.*
 uvicorn[standard]==0.29.*
 pydantic==2.7.*
-pydantic-settings==2.2.*
+pydantic-settings==2.3.*
 python-multipart==0.0.9
-httpx==0.27.*
+
+# ── Database / caching clients ────────────────────────────────────────────────
+asyncpg==0.31.*
+redis==5.0.*
+qdrant-client==1.18.*
+
+# ── PDF parsing ───────────────────────────────────────────────────────────────
+pypdf==6.12.*
+
+# ── Observability ─────────────────────────────────────────────────────────────
+structlog==25.5.*
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+tenacity==8.3.*
