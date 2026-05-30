@@ -35,11 +35,13 @@ _START_TIME: float = time.monotonic()
 
 # ── Dependency checkers ───────────────────────────────────────────────────────
 
+
 async def _check_qdrant() -> DependencyCheck:
     """Ping Qdrant and measure round-trip latency."""
     start = time.monotonic()
     try:
         from qdrant_client import AsyncQdrantClient  # type: ignore
+
         client = AsyncQdrantClient(
             host=settings.qdrant_host,
             port=settings.qdrant_port,
@@ -68,6 +70,7 @@ async def _check_redis() -> DependencyCheck:
     start = time.monotonic()
     try:
         import redis.asyncio as aioredis  # type: ignore
+
         client = aioredis.from_url(settings.redis_url, socket_timeout=5)
         await client.ping()
         await client.aclose()
@@ -91,6 +94,7 @@ async def _check_postgres() -> DependencyCheck:
     start = time.monotonic()
     try:
         import asyncpg  # type: ignore
+
         conn = await asyncpg.connect(
             settings.database_url.replace("+asyncpg", ""),
             timeout=5,
@@ -113,6 +117,7 @@ async def _check_postgres() -> DependencyCheck:
 
 
 # ── Routes ────────────────────────────────────────────────────────────────────
+
 
 @router.get(
     "/health",

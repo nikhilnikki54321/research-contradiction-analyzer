@@ -19,11 +19,15 @@ class Settings(BaseSettings):
     Pydantic validates types and raises at startup — not at runtime.
     """
 
+    upload_dir: str = "./uploads"
+    max_upload_size_bytes: int = 50 * 1024 * 1024
+    allowed_extensions: list[str] = [".pdf"]
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
         case_sensitive=False,
-        extra="ignore",          # silently ignore unknown env vars
+        extra="ignore",  # silently ignore unknown env vars
     )
 
     # ── Application ──────────────────────────────────────────────────────────
@@ -67,7 +71,7 @@ class Settings(BaseSettings):
     postgres_db: str = "rca_db"
     postgres_user: str = "rca_user"
     postgres_password: str = "change-me"
-    database_url: str = ""        # overrides individual fields if set
+    database_url: str = ""  # overrides individual fields if set
     db_pool_size: int = Field(default=10, ge=1, le=50)
     db_max_overflow: int = Field(default=20, ge=0, le=100)
     db_pool_timeout: int = Field(default=30, ge=5, le=120)
@@ -76,7 +80,7 @@ class Settings(BaseSettings):
     redis_url: str = "redis://localhost:6379/0"
     redis_cache_ttl_seconds: int = Field(default=3600, ge=60)
     redis_embedding_ttl_seconds: int = Field(default=86400, ge=3600)
-    redis_nli_ttl_seconds: int = Field(default=604800, ge=3600)   # 7 days
+    redis_nli_ttl_seconds: int = Field(default=604800, ge=3600)  # 7 days
 
     # ── Celery ────────────────────────────────────────────────────────────────
     celery_broker_url: str = "redis://localhost:6379/1"

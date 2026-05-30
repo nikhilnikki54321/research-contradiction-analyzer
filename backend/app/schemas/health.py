@@ -22,8 +22,7 @@ class HealthResponse(BaseModel):
     environment: str = Field(description="deployment environment")
     uptime_seconds: float = Field(description="seconds since process started")
     dependencies: list[DependencyCheck] = Field(
-        default_factory=list,
-        description="Populated only on /ready — empty on /health"
+        default_factory=list, description="Populated only on /ready — empty on /health"
     )
 
     model_config = {
@@ -33,7 +32,7 @@ class HealthResponse(BaseModel):
                 "version": "0.1.0",
                 "environment": "development",
                 "uptime_seconds": 42.3,
-                "dependencies": []
+                "dependencies": [],
             }
         }
     }

@@ -32,6 +32,7 @@ logger = get_logger(__name__)
 
 # ── Lifespan ──────────────────────────────────────────────────────────────────
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     """
@@ -48,7 +49,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     # ── Startup ──────────────────────────────────────────────────────────────
     configure_logging(
         log_level=settings.log_level,
-        as_json=settings.is_production,    # JSON in prod, pretty in dev
+        as_json=settings.is_production,  # JSON in prod, pretty in dev
     )
 
     logger.info(
@@ -64,7 +65,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 
     logger.info("app.started", port=settings.app_port)
 
-    yield   # ← application is running and serving requests
+    yield  # ← application is running and serving requests
 
     # ── Shutdown ─────────────────────────────────────────────────────────────
     logger.info("app.shutting_down")
@@ -85,11 +86,12 @@ def _validate_startup_config() -> None:
         "config.validated",
         llm_provider=settings.llm_provider,
         qdrant_host=settings.qdrant_host,
-        redis_url=settings.redis_url.split("@")[-1],    # strip credentials
+        redis_url=settings.redis_url.split("@")[-1],  # strip credentials
     )
 
 
 # ── App factory ───────────────────────────────────────────────────────────────
+
 
 def create_app() -> FastAPI:
     """
@@ -121,6 +123,7 @@ def create_app() -> FastAPI:
 
 
 # ── Middleware ────────────────────────────────────────────────────────────────
+
 
 def _register_middleware(app: FastAPI) -> None:
     """
@@ -168,12 +171,14 @@ def _register_middleware(app: FastAPI) -> None:
 
 # ── Routers ───────────────────────────────────────────────────────────────────
 
+
 def _register_routers(app: FastAPI) -> None:
     """Mount all API routers under their versioned prefix."""
     app.include_router(v1_router, prefix="/api/v1")
 
 
 # ── Exception handlers ────────────────────────────────────────────────────────
+
 
 def _register_exception_handlers(app: FastAPI) -> None:
     """
@@ -224,7 +229,8 @@ def _register_exception_handlers(app: FastAPI) -> None:
             content={
                 "error": "InternalServerError",
                 "detail": (
-                    str(exc) if settings.is_development
+                    str(exc)
+                    if settings.is_development
                     else "An unexpected error occurred"
                 ),
                 "request_id": request_id,

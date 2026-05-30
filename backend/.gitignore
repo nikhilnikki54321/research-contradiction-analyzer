@@ -1,34 +1,33 @@
 # Python
 __pycache__/
-*.py[cod]
+*.pyc
 *.pyo
 *.pyd
 
 # Virtual environment
 .venv/
-
-# Environment variables
 .env
 
-# Models/cache
-models/
-*.bin
+# Uploads
+backend/uploads/
+uploads/
 
-# Jupyter
-.ipynb_checkpoints/
-
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
+# OS files
+.DS_Store
+Thumbs.db
 
 # IDE
 .vscode/
 .idea/
 
-# OS
-.DS_Store
-Thumbs.db
-
 # Logs
 *.log
+
+# Testing
+.pytest_cache/
+
+# Environment configs
+.env.local
+
+# Jupyter
+.ipynb_checkpoints/

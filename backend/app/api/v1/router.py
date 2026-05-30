@@ -17,9 +17,8 @@ To add a new feature:
 """
 
 from fastapi import APIRouter
-
 from app.api.v1 import health
-from app.api.v1.upload import router as upload_router
+from app.api.v1 import papers
 
 # All routes here are automatically prefixed with /api/v1 in main.py
 v1_router = APIRouter()
@@ -27,8 +26,12 @@ v1_router = APIRouter()
 # Health endpoints
 v1_router.include_router(health.router)
 
-# Upload endpoints
-v1_router.include_router(upload_router)
+
+v1_router.include_router(
+    papers.router,
+    prefix="/papers",
+    tags=["papers"],
+)
 
 # Future routers are added here as the project grows:
 # from app.api.v1 import papers, analysis, stream
